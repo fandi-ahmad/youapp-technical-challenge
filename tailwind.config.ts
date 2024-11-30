@@ -16,6 +16,7 @@ const config: Config = {
       colors: {
         'dark-blue': '#09141A',
         'dark-soft-blue': '#0D1D23',
+        'dark-soft-blue-200': '#162329',
         'soft-blue': '#1F4247',
         'golden': '#D7C28E',
         'shine-blue-100': '#62CDCB',
