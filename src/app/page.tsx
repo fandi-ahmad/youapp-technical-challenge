@@ -5,14 +5,11 @@ import { ApiUserGetProfile } from "@/api/ApiUsers";
 import HeaderProfile from "@/components/HeaderProfile";
 import CardProfile from "@/components/CardProfile";
 import TextBio from "@/components/TextBio";
-import imageExample from "@/assets/images/example-image.jpeg"
 import Image from "next/image";
 import Label from "@/components/Label";
-import iconExample from "@/assets/icons/edit.svg"
 import formatDate from "@/utils/formatDate";
 import { ProfileType } from "@/interface/ProfileType";
 import zodiacIconHandler from "@/utils/zodiacIconHandler";
-import LibraIcon from "@/assets/zodiac/libra.svg"
 
 
 export default function Home() {
@@ -59,7 +56,7 @@ export default function Home() {
         {/* <Image alt="ex" src={imageExample} className="object-cover w-full h-60" /> */}
         <div className="absolute p-4 z-20">
           <p className="font-semibold">@{profile?.username}</p>
-          <p>male</p>
+          <p>Male</p>
           <div className="flex flex-wrap gap-4 mt-2">
             {profile?.horoscope &&
               <>
@@ -95,16 +92,17 @@ export default function Home() {
       </CardProfile>
       
       
-      <CardProfile title="Interest">
+      <CardProfile title="Interest" handleEditClick={() => router.push('/edit/interests')}>
         <div className="mt-4 flex flex-wrap gap-4">
-          {profile?.interests
-            ?
+          {profile?.interests ?
             Object.values(profile.interests).map((interest, index) => (
               <Label key={index}>{interest}</Label>
-            ))
-            :
-            <p className="mt-4 opacity-50">Add in your interest to find a better match</p>
+            )) : null
           }
+
+          {profile?.interests && Object.keys(profile.interests).length === 0 ? (
+            <p className="mt-4 opacity-50">Add in your interest to find a better match</p>
+          ) : null}
         </div>
       </CardProfile>
 

@@ -8,6 +8,9 @@ import React, { useEffect, useRef, useState, ChangeEvent } from 'react'
 import { ApiUserGetProfile, ApiUserUpdateProfile } from '@/api/ApiUsers'
 import { ProfileType } from "@/interface/ProfileType";
 import CardProfileEdit from '@/components/CardProfileEdit'
+import CardProfile from '@/components/CardProfile'
+import Label from '@/components/Label'
+import zodiacIconHandler from '@/utils/zodiacIconHandler'
 
 interface InputTemplateType {
   label: string
@@ -100,8 +103,27 @@ const Edit = () => {
     <div className='max-w-xl mx-auto min-h-screen relative px-6 py-8 bg-dark-blue'>
       <HeaderProfile onClick={() => router.push('/')} username={'@'+profile?.username} />
 
-      <div className="w-full h-56 bg-dark-soft-blue-200 rounded-xl mt-8 flex items-end p-4">
-        <p className="font-semibold">@{profile?.username}</p>
+      <div className="w-full h-60 bg-dark-soft-blue-200 rounded-xl mt-8 flex items-end overflow-hidden">
+        {/* <Image alt="ex" src={imageExample} className="object-cover w-full h-60" /> */}
+        <div className="absolute p-4 z-20">
+          <p className="font-semibold">@{profile?.username}</p>
+          <p>Male</p>
+          <div className="flex flex-wrap gap-4 mt-2">
+            {profile?.horoscope &&
+              <>
+                <Label bgDark>
+                  <Image alt="icon" src={zodiacIconHandler(profile?.horoscope || '')} className="me-2 w-5 h-5 object-contain" /> {profile.horoscope}
+                </Label>
+                <Label bgDark>
+                  <Image alt="icon" src={zodiacIconHandler(profile.horoscope)} className="me-2 w-5 h-5 object-contain" /> {profile?.zodiac}
+                </Label>
+              </>
+            }
+          </div>
+        </div>
+        <div className="absolute w-full h-28 z-10 left-0 px-6">
+          <div className="bg-gradient-to-t from-black to-transparent h-28 rounded-br-xl rounded-bl-xl "></div>
+        </div>
       </div>
 
       <CardProfileEdit title='About' handleButtonClick={handleSaveAndUpdateButton}>
@@ -153,6 +175,20 @@ const Edit = () => {
 
         </div>
       </CardProfileEdit>
+
+      <CardProfile title="Interest" handleEditClick={() => router.push('/edit/interests')}>
+        <div className="mt-4 flex flex-wrap gap-4">
+          {profile?.interests ?
+            Object.values(profile.interests).map((interest, index) => (
+              <Label key={index}>{interest}</Label>
+            )) : null
+          }
+
+          {profile?.interests && Object.keys(profile.interests).length === 0 ? (
+            <p className="mt-4 opacity-50">Add in your interest to find a better match</p>
+          ) : null}
+        </div>
+      </CardProfile>
       
     </div>
   )

@@ -1,8 +1,9 @@
 import BackButton from './BackButton'
 
 interface HeaderProfileType {
-  username: string
+  username?: string
   onClick?: () => void
+  rightClick?: () => void 
 }
 
 const HeaderProfile = (props: HeaderProfileType) => {
@@ -15,8 +16,8 @@ const HeaderProfile = (props: HeaderProfileType) => {
         <p>{props.username}</p>
       </div>
 
-      <div className="w-full">
-        <span></span>
+      <div className="w-full text-end">
+        <button className='text-blue-300' onClick={props.rightClick}>Save</button>
       </div>
     </div>
   )
