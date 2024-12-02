@@ -1,9 +1,9 @@
 export interface ProfileType {
   email: string
   username: string
-  interests: {
-    [key: number]: string
-  }
+  interests: string[] | {
+  [key: number]: string
+}
   name?: string
   birthday?: string
   horoscope?: string
